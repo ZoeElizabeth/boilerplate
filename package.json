@@ -1,5 +1,5 @@
 {
-  "name": "react-simple-boilerplate",
+  "name": "chatty",
   "version": "1.0.0",
   "description": "Simple and lightweight Boilerplate for ReactJS projects",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZoeElizabeth/boilerplate"
+    "url": "https://github.com/ZoeElizabeth/chatty"
   },
   "keywords": [
     "react",
@@ -22,9 +22,9 @@
   "author": "Zoe Gelech <zoe.gelech@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ZoeElizabeth/boilerplate/issues"
+    "url": "https://github.com/ZoeElizabeth/chatty/issues"
   },
-  "homepage": "https://github.com/ZoeElizabeth/boilerplate",
+  "homepage": "https://github.com/ZoeElizabeth/chatty",
   "engines": {
     "node": ">=6.0.0"
   },
