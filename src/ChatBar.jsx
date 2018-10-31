@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 
-console.log(this)
+
 class ChatBar extends Component {
 
   chatBarContent(event){
  
+   
 
     const content = event.target
+
+    // console.log(this.props.grabInput())
 
       if (event.charCode === 13){
   
@@ -25,15 +28,15 @@ class ChatBar extends Component {
   
   grabName(event){
  
-    console.log(event)
+    // console.log(event, "1")
 
     const content = event.target
 
       if (event.charCode === 13){
   
-      this.props.grabName(content.value)
+        this.props.grabName(content.value)
 
-      content.value = "";
+      // content.value = "";
       
   
       }

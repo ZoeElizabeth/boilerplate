@@ -3,47 +3,28 @@ import React, {Component} from 'react';
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./Chatbar.jsx";
 const uuidv1 = require('uuid/v4');
-uuidv1();
+// uuidv1();
 
-
-
-const data = {
-  currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-  messages: [
-    {
-      id: "1",
-      username: "Bob",
-      content: "Has anyone seen my marbles?",
-    },
-    {
-      id: "2",
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-    }
-  ]
-};
-
-const currentUser = data;
 
 class App extends Component {
 
   constructor(props) {
-  super(props)
+    super(props)
 
     this.state = {
-      loading: true,
-      username: "adsa",
+      username: "Anonymous",
       messages: [],
-    }
+  };
    this.grabInput = this.grabInput.bind(this)
+   this.grabName = this.grabName.bind(this);
    this.socket = new WebSocket( "ws://localhost:3001");
   }
 
   grabInput(input) {
-
+ 
     const newMessage = {
       id: uuidv1(),
-      username: "fred",
+      username: this.state.username,
       content: input,
     };   
     // console.log(username, "username")
@@ -53,30 +34,17 @@ class App extends Component {
   }
 
   grabName(name) {
-console.log(name)
-      const newUser = {
-        id: uuidv1(),
-        username: "kal",
-    
-      };   
-      // console.log(username, "username")
-      
-      // this.socket.send(JSON.stringify(name))
-  
-    }
+
+    this.setState({ username: name }, () => {
+      console.log("after setting state", this.state);
+    });
+   
+  }
 
   
 
   componentDidMount() {
 
-    // WebSocket WebSocket(
-    //   in DOMString url,
-    //   in optional DOMString protocols
-    //   );
-    // this.socket.addEventListener( (message) => {
-      
-    //   console.log("test", message);
-    // });
       this.socket.onmessage = (message) => {
         const newMessage = JSON.parse(message.data)
   
