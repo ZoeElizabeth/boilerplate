@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 // import Message from "./Message.jsx";
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./Chatbar.jsx";
+const uuidv1 = require('uuid/v4');
+uuidv1();
+
+
 
 const data = {
   currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
@@ -19,21 +23,6 @@ const data = {
   ]
 };
 
-export const generateRandomId = (alphabet => {
-  const alphabetLength = alphabet.length;
-  const randoIter = (key, n) => {
-    if (n === 0) {
-      return key;
-    }
-    const randoIndex = Math.floor(Math.random() * alphabetLength);
-    const randoLetter = alphabet[randoIndex];
-    return randoIter(key + randoLetter, n - 1);
-  };
-  return () => randoIter("", 10);
-})("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-
-
-
 const currentUser = data;
 
 class App extends Component {
@@ -43,35 +32,72 @@ class App extends Component {
 
     this.state = {
       loading: true,
-      currentUser: currentUser,
-      messages: currentUser.messages
+      username: "adsa",
+      messages: [],
     }
    this.grabInput = this.grabInput.bind(this)
+   this.socket = new WebSocket( "ws://localhost:3001");
   }
 
   grabInput(input) {
 
     const newMessage = {
-      id: generateRandomId(),
-      username: this.state.currentUser.currentUser.name,
+      id: uuidv1(),
+      username: "fred",
       content: input,
     };   
+    // console.log(username, "username")
     
-    const oldItems = this.state.messages;
-    const newItems = [...oldItems, newMessage];
+    this.socket.send(JSON.stringify(newMessage))
 
-    this.setState({
-      messages: newItems
-    });
   }
+
+  grabName(name) {
+console.log(name)
+      const newUser = {
+        id: uuidv1(),
+        username: "kal",
+    
+      };   
+      // console.log(username, "username")
+      
+      // this.socket.send(JSON.stringify(name))
+  
+    }
 
   
 
   componentDidMount() {
 
+    // WebSocket WebSocket(
+    //   in DOMString url,
+    //   in optional DOMString protocols
+    //   );
+    // this.socket.addEventListener( (message) => {
+      
+    //   console.log("test", message);
+    // });
+      this.socket.onmessage = (message) => {
+        const newMessage = JSON.parse(message.data)
+  
+        const oldItems = this.state.messages;
+        const newItems = [...oldItems, newMessage];
+        this.setState({
+          // username: message.username,
+          messages: newItems
+        });
+
+      }
+
+    this.socket.addEventListener("open", function(evt) {
+      console.log("NEW CONNECTION");
+      console.log(evt.data);
+  });
+
+
     // setTimeout(() => {
 
-      // const newMessage = newMessage
+    //   const newMessage = this.newMessage
      
     //   const messages = this.state.messages.concat(newMessage)
     //   this.setState({messages: messages})
@@ -88,7 +114,7 @@ class App extends Component {
       <div> 
      
      <MessageList messages={this.state.messages} />
-     <ChatBar grabInput={this.grabInput} currentUser={this.state.currentUser}/>
+     <ChatBar grabName={this.grabName} grabInput={this.grabInput} currentUser={this.state.currentUser}/>
      
      </div>
  
