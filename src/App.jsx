@@ -24,17 +24,17 @@ class App extends Component {
  
     const newMessage = {
       id: uuidv1(),
-      username: this.state.username,
+      username: this.state.username || "Anonymous",
       content: input,
     };   
-    // console.log(username, "username")
+
     
     this.socket.send(JSON.stringify(newMessage))
 
   }
 
   grabName(name) {
-
+    console.log("before setting state", this.state);
     this.setState({ username: name }, () => {
       console.log("after setting state", this.state);
     });
