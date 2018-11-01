@@ -23,8 +23,8 @@ class App extends Component {
   grabInput(input) {
  
     const newMessage = {
-      type: "postMessage",
       id: uuidv1(),
+      type: "message",
       username: this.state.username || "Anonymous",
       content: input,
     };   
@@ -38,7 +38,7 @@ class App extends Component {
     // console.log("before setting state", this.state);
     this.setState({ 
       id: uuidv1(),
-      type: "postNotification",
+      type: "notification",
       username: name,
       content: `${this.state.username} has changed their name to ${name}`}, () => {
       // console.log("after setting state", this.state);
@@ -47,26 +47,48 @@ class App extends Component {
     
   }
 
+  updateMessages(message) {
+    
+    let messageType = message.type
+    // console.log(messageType, "message")
+
+    const oldItems = this.state.messages;
+    const newItems = [...oldItems, message];
+    this.setState({
+      // type: checkData(newMessage),
+      messages: newItems
+    });
+
+
+  }
   
+
+  // console.log(data, "data")
+  // switch(data.type) {
+  //   case 'notification':
+  //     this.setState
+  //     break;
+  //   case 'message':
+      
+  //     break;
+  // }
+  // console.log(data, "data2")
 
   componentDidMount() {
 
+    
+      // dataType = JSON.parse(data).type
       this.socket.onmessage = (message) => {
-        console.log(message, "hereR")
+        // console.log(message, "hereR")
         const newMessage = JSON.parse(message.data)
+        
+        this.updateMessages(newMessage) 
   
-        const oldItems = this.state.messages;
-        const newItems = [...oldItems, newMessage];
-        this.setState({
-          // username: message.username,
-          messages: newItems
-        });
-
       }
 
     this.socket.addEventListener("open", function(evt) {
       console.log("NEW CONNECTION");
-      console.log(evt.data);
+      // console.log(evt, "evtxx");
   });
 
 

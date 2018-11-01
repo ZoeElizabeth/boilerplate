@@ -49,9 +49,10 @@ body {
   padding: 5px;
 }
 
-.message.system {
+.notification {
   font-style: italic;
   padding: 5px 20px;
+  margin-left: 2em;
 }
 
 .message-content,

@@ -18,19 +18,24 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+
+
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
-  clients.push(ws)
 
+  clients.push(ws)
+ 
+  console.log(count)
   ws.on('message', function incoming(message) {
-    // console.log('received: %s', message);
-    let messageType = JSON.parse(message).type
-    
-    console.log(JSON.parse(message.type), "here i am")
+    console.log('received: %s', message);
+
+    let messageType = JSON.parse(message)
+  
+
     wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
           console.log("im here")
