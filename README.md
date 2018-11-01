@@ -44,3 +44,6 @@ npm run lint
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
+## Image credit
+<a href="https://www.freepik.com/free-vector/hawaiian-luau-background_3280726.htm">Designed by Freepik</a>
+<a href='https://www.freepik.com/free-vector/background-of-hand-drawn-blue-waves_957723.htm'>Designed by Freepik</a>

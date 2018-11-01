@@ -28,7 +28,7 @@ class App extends Component {
       content: input,
     };   
 
-    
+    console.log(newMessage)
     this.socket.send(JSON.stringify(newMessage))
 
   }

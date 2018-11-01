@@ -22,10 +22,10 @@ class ChatBar extends Component {
   grabName(event){
     const content = event.target
 
-      // if (event.charCode === 13){
+      if (event.charCode === 13){
   
         this.props.grabName(content.value)
-      // }
+      }
     }
 
   render() {

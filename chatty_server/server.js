@@ -28,7 +28,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
-    clients.forEach(client => {
+    wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN && client != ws) {
           console.log("im here")
   
