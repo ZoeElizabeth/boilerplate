@@ -28,8 +28,7 @@ wss.on('connection', (ws) => {
 
 
   clients.push(ws)
- 
-  console.log(count)
+
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
 

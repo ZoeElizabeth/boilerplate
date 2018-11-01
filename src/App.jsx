@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import Message from "./Message.jsx";
+import Nav from "./Nav.jsx";
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./Chatbar.jsx";
 const uuidv1 = require('uuid/v4');
@@ -109,7 +109,7 @@ class App extends Component {
 
         
       <div> 
-     
+     <Nav/>
      <MessageList messages={this.state.messages} />
      <ChatBar grabName={this.grabName} grabInput={this.grabInput} currentUser={this.state.currentUser}/>
      

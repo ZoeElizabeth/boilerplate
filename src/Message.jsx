@@ -6,8 +6,8 @@ class Message extends Component {
 console.log(this.props.message)
 
       if (this.props.message.type === "notification") {
-      return ( <div className="notification">
-  <span className="notification-content">{this.props.message.content}</span>
+      return ( <div class="notification">
+  <span class="notification-content"></span>
       </div> )
 
     
