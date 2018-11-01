@@ -27,9 +27,12 @@ wss.on('connection', (ws) => {
   clients.push(ws)
 
   ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
+    // console.log('received: %s', message);
+    let messageType = JSON.parse(message).type
+    
+    console.log(JSON.parse(message.type), "here i am")
     wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN && client != ws) {
+        if (client.readyState === WebSocket.OPEN) {
           console.log("im here")
   
             client.send(message);

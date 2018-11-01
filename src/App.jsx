@@ -23,22 +23,28 @@ class App extends Component {
   grabInput(input) {
  
     const newMessage = {
+      type: "postMessage",
       id: uuidv1(),
       username: this.state.username || "Anonymous",
       content: input,
     };   
 
-    console.log(newMessage)
+    // console.log(newMessage)
     this.socket.send(JSON.stringify(newMessage))
 
   }
 
   grabName(name) {
-    console.log("before setting state", this.state);
-    this.setState({ username: name }, () => {
-      console.log("after setting state", this.state);
+    // console.log("before setting state", this.state);
+    this.setState({ 
+      id: uuidv1(),
+      type: "postNotification",
+      username: name,
+      content: `${this.state.username} has changed their name to ${name}`}, () => {
+      // console.log("after setting state", this.state);
+      this.socket.send(JSON.stringify(this.state))
     });
-   
+    
   }
 
   
@@ -46,6 +52,7 @@ class App extends Component {
   componentDidMount() {
 
       this.socket.onmessage = (message) => {
+        console.log(message, "hereR")
         const newMessage = JSON.parse(message.data)
   
         const oldItems = this.state.messages;
