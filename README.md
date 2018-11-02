@@ -1,19 +1,16 @@
-React Boilerplate
+Luau Group Hangout App
 =====================
 
-A minimal and light dev environment for ReactJS.
+A minimal chat app project to flex react skills.
+
+
+# Final Product
+## Composing a Tweet
+!["User1 Experience"](https://i.gyazo.com/9dceab9e9b736f69594d3c30fce9caaa.gif)
+## Posting Tweet
+!["user2 Experience"](https://i.gyazo.com/3043172e7c2ac1caa197b296a5ac45ab.gif)
 
 ### Usage
-
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
 
 Install the dependencies and start the server.
 

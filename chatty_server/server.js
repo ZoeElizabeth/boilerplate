@@ -36,7 +36,6 @@ wss.on('connection', (ws) => {
     type: "count"
   };
 
-  console.log(count, "1")
   wss.broadcast(JSON.stringify(count))
     
   ws.on('message', function incoming(message) {
