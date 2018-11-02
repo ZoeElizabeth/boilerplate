@@ -5,8 +5,8 @@ class Nav extends Component {
 
     let counter = this.props.count.count;
 
-    return (<nav className="navbar">
-          <a href="/" className="navbar-brand"><img src="../build/luau.png"/></a>
+    return (<nav className='navbar'>
+          <a href='/' className='navbar-brand'><img src='../build/luau.png'/></a>
           <div>Users online: {counter}  </div>
       </nav>);
     

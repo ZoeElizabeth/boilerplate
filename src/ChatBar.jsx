@@ -11,7 +11,7 @@ class ChatBar extends Component {
   
         this.props.grabInput(content.value);
 
-        content.value = "";    
+        content.value = '';    
       }
   }
   //Grab username content from input box and send to be rendered
@@ -27,9 +27,9 @@ class ChatBar extends Component {
   render() {
 
     return (
-      <footer className="chatbar">
-        <input className="chatbar-username" onKeyPress={this.grabName.bind(this)} placeholder="name" />
-        <input name="messageInput" className="chatbar-message" onKeyPress={this.chatBarContent.bind(this)} placeholder="Type a message and hit ENTER" />
+      <footer className='chatbar'>
+        <input className='chatbar-username' onKeyPress={this.grabName.bind(this)} placeholder='name' />
+        <input name='messageInput' className='chatbar-message' onKeyPress={this.chatBarContent.bind(this)} placeholder='Type a message and hit ENTER' />
         </footer>
     );
   }

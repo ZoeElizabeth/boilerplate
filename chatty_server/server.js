@@ -30,7 +30,7 @@ const wss = new SocketServer({ server });
   };
 
 wss.on('connection', (ws) => {
-  console.log('Client connected');
+
   let count = {
     count: wss.clients.size,
     type: "count"
@@ -40,9 +40,6 @@ wss.on('connection', (ws) => {
   wss.broadcast(JSON.stringify(count))
     
   ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-  
-
     wss.clients.forEach(client => {
      
       if (client.readyState === WebSocket.OPEN) {
@@ -52,7 +49,7 @@ wss.on('connection', (ws) => {
     });
   });
 
-  ws.on('close', () => { console.log('Client disconnected')
+  ws.on('close', () => { 
   let disconnectCount = {
     count: wss.clients.size,
     type: "count"

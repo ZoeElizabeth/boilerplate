@@ -1,8 +1,8 @@
 //App set up
 import React, {Component} from 'react';
-import Nav from "./Nav.jsx";
-import MessageList from "./MessageList.jsx";
-import ChatBar from "./Chatbar.jsx";
+import Nav from './Nav.jsx';
+import MessageList from './MessageList.jsx';
+import ChatBar from './Chatbar.jsx';
 const uuidv1 = require('uuid/v4');
 
 
@@ -13,14 +13,14 @@ class App extends Component {
     super(props)
 
     this.state = {
-      username: "Anonymous",
+      username: 'Anonymous',
       messages: [],
       count: 0,
   };
    this.grabInput = this.grabInput.bind(this);
    this.grabName = this.grabName.bind(this);
    this.userCount = this.userCount.bind(this);
-   this.socket = new WebSocket( "ws://localhost:3001");
+   this.socket = new WebSocket( 'ws://localhost:3001');
   }
 
   //grabing message content from user
@@ -28,8 +28,8 @@ class App extends Component {
  
     const newMessage = {
       id: uuidv1(),
-      type: "message",
-      username: this.state.username || "Anonymous",
+      type: 'message',
+      username: this.state.username || 'Anonymous',
       content: input,
     };   
 
@@ -43,10 +43,10 @@ class App extends Component {
   
     this.setState({ 
       id: uuidv1(),
-      type: "notification",
+      type: 'notification',
       username: name,
       content: `${this.state.username} has changed their name to ${name}` }, () => {
-      // console.log("after setting state", this.state);
+      // console.log('after setting state', this.state);
       this.socket.send(JSON.stringify(this.state));
     });
   }
@@ -72,27 +72,22 @@ class App extends Component {
 //Rendering items on mount
   componentDidMount() {
 
-  
-  this.socket.onmessage = (message) => {
+    this.socket.onmessage = (message) => {
+      const newMessage = JSON.parse(message.data);
 
-    const newMessage = JSON.parse(message.data);
-
-    switch (newMessage.type) {
-      case "message":
-      this.updateMessages(newMessage);
-      break;
-      case "notification":
-      this.updateMessages(newMessage);
-      break;
-      case "count":
-      this.userCount(newMessage);
-      break;
+      switch (newMessage.type) {
+        case 'message':
+        this.updateMessages(newMessage);
+        break;
+        case 'notification':
+        this.updateMessages(newMessage);
+        break;
+        case 'count':
+        this.userCount(newMessage);
+        break;
+      }
     }
-  }
 
-    this.socket.onopen = (evt) => {
-      console.log("NEW CONNECTION");
-    }
   }
   
 
@@ -106,5 +101,5 @@ class App extends Component {
     </div>
     );
   }
-};
+}
 export default App;
