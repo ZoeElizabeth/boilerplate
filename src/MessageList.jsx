@@ -9,7 +9,7 @@ render(){
   const messages = this.props.messages.map(message =>
      
   <Message
-    key= { message.id }
+    key = { message.id }
     message = {message}
     />
   );

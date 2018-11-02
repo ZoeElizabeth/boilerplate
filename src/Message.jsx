@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Message extends Component {
   render() {
   
-console.log(this.props.message)
+// console.log(this.props.message)
 
       if (this.props.message.type === "notification") {
       return ( <div className="notification">

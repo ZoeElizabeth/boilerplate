@@ -3,7 +3,6 @@ import Nav from "./Nav.jsx";
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./Chatbar.jsx";
 const uuidv1 = require('uuid/v4');
-// uuidv1();
 
 
 class App extends Component {
@@ -14,9 +13,11 @@ class App extends Component {
     this.state = {
       username: "Anonymous",
       messages: [],
+      count: 0,
   };
    this.grabInput = this.grabInput.bind(this)
    this.grabName = this.grabName.bind(this);
+   this.userCount = this.userCount.bind(this);
    this.socket = new WebSocket( "ws://localhost:3001");
   }
 
@@ -44,76 +45,61 @@ class App extends Component {
       // console.log("after setting state", this.state);
       this.socket.send(JSON.stringify(this.state))
     });
-    
   }
 
   updateMessages(message) {
-    
-    let messageType = message.type
-    // console.log(messageType, "message")
 
     const oldItems = this.state.messages;
     const newItems = [...oldItems, message];
     this.setState({
-      // type: checkData(newMessage),
+
       messages: newItems
     });
-
-
   }
   
+  userCount(count) {
+    console.log(count, "num")
+    this.setState({
 
-  // console.log(data, "data")
-  // switch(data.type) {
-  //   case 'notification':
-  //     this.setState
-  //     break;
-  //   case 'message':
-      
-  //     break;
-  // }
-  // console.log(data, "data2")
+      count: count
+    });
+  }
 
   componentDidMount() {
 
-    
-      // dataType = JSON.parse(data).type
-      this.socket.onmessage = (message) => {
-        // console.log(message, "hereR")
-        const newMessage = JSON.parse(message.data)
-        
-        this.updateMessages(newMessage) 
   
-      }
+  this.socket.onmessage = (message) => {
 
-    this.socket.addEventListener("open", function(evt) {
+    const newMessage = JSON.parse(message.data)
+
+
+  if (newMessage.type === "count"){
+    this.userCount(newMessage)
+  }else if 
+  (newMessage.type === "message" || "notification"){
+    this.updateMessages(newMessage) 
+  }
+}
+
+    this.socket.onopen = (evt) => {
       console.log("NEW CONNECTION");
-      // console.log(evt, "evtxx");
-  });
 
-
-    // setTimeout(() => {
-
-    //   const newMessage = this.newMessage
-     
-    //   const messages = this.state.messages.concat(newMessage)
-    //   this.setState({messages: messages})
-    // }, 3000);
+    };
   }
   
 
 
   render() {
-
+    // let count = this.socket.__proto__.OPEN
     return (
 
         
-      <div> 
-     <Nav/>
-     <MessageList messages={this.state.messages} />
-     <ChatBar grabName={this.grabName} grabInput={this.grabInput} currentUser={this.state.currentUser}/>
+    <div> 
+      <Nav count={this.state.count} />
+      <MessageList messages={this.state.messages} />
+      <ChatBar grabName={this.grabName} grabInput={this.grabInput} currentUser={this.state.currentUser}/>
      
-     </div>
+    </div>
  
     );
   }
