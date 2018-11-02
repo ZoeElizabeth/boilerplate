@@ -1,5 +1,5 @@
 const express = require('express');
-const WebSocket = require('ws')
+const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
 
 
@@ -18,7 +18,6 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
-
   wss.broadcast = function broadcast(data) {
     
     wss.clients.forEach(function each(client) {
@@ -30,10 +29,6 @@ const wss = new SocketServer({ server });
     });
   };
 
-
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
   let count = {
@@ -41,7 +36,7 @@ wss.on('connection', (ws) => {
     type: "count"
   };
 
-  
+  console.log(count, "1")
   wss.broadcast(JSON.stringify(count))
     
   ws.on('message', function incoming(message) {
@@ -50,19 +45,21 @@ wss.on('connection', (ws) => {
 
     wss.clients.forEach(client => {
      
-        if (client.readyState === WebSocket.OPEN) {
+      if (client.readyState === WebSocket.OPEN) {
 
-            client.send(message);
-        }
+        client.send(message);
+      }
     });
-  
-});
+  });
 
-ws.on('close', () => { console.log('Client disconnected')
+  ws.on('close', () => { console.log('Client disconnected')
+  let disconnectCount = {
+    count: wss.clients.size,
+    type: "count"
+  };
 
-console.log(count, "counting")
-wss.broadcast(JSON.stringify(count))
-});
+  wss.broadcast(JSON.stringify(disconnectCount))
+  });
 
 });
 
